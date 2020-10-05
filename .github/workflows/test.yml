@@ -1,0 +1,24 @@
+---
+name: Build and Test
+on:
+  pull_request:
+    branches:
+      - main
+      - master
+jobs:
+  build:
+    name: Biuld the Docker image
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - name: Checkout external libs
+        uses: actions/checkout@v2
+        with:
+          repository: opsgang/libs
+          ref: refs/tags/0.0.16
+          path: '/var/lib/opsgang/libs'
+      - name: libs
+        run: ls -la /var/lib/opsgang/libs/
+      - name: envs
+        run: env | sort

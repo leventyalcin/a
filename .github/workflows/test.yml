@@ -9,6 +9,9 @@ on:
     branches:
       - main
       - master
+env:
+  glob1: glob-val1
+  glob2: glob-val2
 
 jobs:
   build:
@@ -27,16 +30,15 @@ jobs:
         id: findPr
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
-      - name: tree
-        run: ls -la
-      - name: libs
-        run: ls -la opsgang/libs/
       - name: envs
         run: env | sort
-      - name: test secret as env var
-        run: printf %s $TEST_SECRET
-      - name: test secret as GH annotation
-        run: printf %s ${{secrets.TEST_SECRET}}
+      - name: test env var concat
+        run: echo "var3=$var3"; echo "---" echo "var4=${{ env.var4 }}"
+        env:
+          var1: val1
+          var2: val2
+          var3: ${{ env.var1 }} and ${{ env.var2 }}
+          var4: ${{ env.glob1 }} and ${{ env.glob2 }}
       - name: PR id
         run: echo $GITHUB_PR_ID
         env:

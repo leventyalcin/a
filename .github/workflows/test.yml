@@ -33,4 +33,8 @@ jobs:
         run: printf %s $TEST_SECRET
       - name: test secret as GH annotation
         run: printf %s ${{secrets.TEST_SECRET}}
+      - name: PR id
+        run: echo $GITHUB_PR_ID
+        env:
+          GITHUB_PR_ID: "${{ github.event.number }}"
 

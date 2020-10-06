@@ -1,0 +1,36 @@
+---
+name: Build and Test
+on:
+  pull_request:
+    branches:
+      - main
+      - master
+  push:
+    branches:
+      - main
+      - master
+
+jobs:
+  build:
+    name: Build the Docker image
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - name: Checkout external libs
+        uses: actions/checkout@v2
+        with:
+          repository: opsgang/libs
+          ref: refs/tags/0.0.16
+          path: 'opsgang/libs'
+      - name: tree
+        run: ls -la
+      - name: libs
+        run: ls -la opsgang/libs/
+      - name: envs
+        run: env | sort
+      - name: test secret as env var
+        run: printf %s $TEST_SECRET
+      - name: test secret as GH annotation
+        run: printf %s ${{secrets.TEST_SECRET}}
+

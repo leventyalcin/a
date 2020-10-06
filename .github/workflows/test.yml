@@ -25,7 +25,7 @@ jobs:
       - name: envs
         run: env | sort
       - name: test secret as env var
-        run: docker login $TEST_SECRET
+        run: printf %s $TEST_SECRET
       - name: test secret as GH annotation
         run: docker login ${{secrets.TEST_SECRET}}
 

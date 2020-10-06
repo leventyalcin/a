@@ -27,5 +27,5 @@ jobs:
       - name: test secret as env var
         run: docker login $TEST_SECRET
       - name: test secret as GH annotation
-        run: docker login ${{TEST_SECRET}}
+        run: docker login ${{secrets.TEST_SECRET}}
 

@@ -24,3 +24,8 @@ jobs:
         run: ls -la opsgang/libs/
       - name: envs
         run: env | sort
+      - name: test secret as env var
+        run: docker login $TEST_SECRET
+      - name: test secret as GH annotation
+        run: docker login ${{TEST_SECRET}}
+

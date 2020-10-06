@@ -33,7 +33,7 @@ jobs:
       - name: envs
         run: env | sort
       - name: test env var concat
-        run: echo "var3=$var3"; echo "---"; echo "var4=${{ env.var4 }}"
+        run: echo "var3=${{ env.var3 }}"; echo "---"; echo "var4=${{ env.var4 }}"
         env:
           var1: "val1"
           var2: "val2"

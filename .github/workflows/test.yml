@@ -23,6 +23,10 @@ jobs:
           repository: opsgang/libs
           ref: refs/tags/0.0.16
           path: 'opsgang/libs'
+      - uses: jwalton/gh-find-current-pr@v1
+        id: findPr
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
       - name: tree
         run: ls -la
       - name: libs
@@ -37,4 +41,8 @@ jobs:
         run: echo $GITHUB_PR_ID
         env:
           GITHUB_PR_ID: "${{ github.event.number }}"
+      - name: PR id on merge
+        run: echo $PR
+        env:
+          PR: ${{ steps.findPr.outputs.pr }}
 

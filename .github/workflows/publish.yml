@@ -1,0 +1,27 @@
+---
+name: Publish
+on:
+  push:
+    branches:
+      - main
+      - master
+
+jobs:
+  publish:
+    name: Publish Docker image
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - uses: jwalton/gh-find-current-pr@v1
+        id: findPr
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+      - name: Download a single artifact
+        uses: actions/download-artifact@v2
+        with:
+          name: docker-image-${{ steps.findPr.outputs.pr }}
+      - name: Print files
+        run: find . 2>/dev/null || true
+      - name: Print file content
+        run: cat docker-image.txt
